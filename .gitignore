@@ -1,0 +1,7 @@
+__pycache__
+*.pyc
+*.py~
+build
+dist
+MANIFEST
+django_cache_extension.egg-info
