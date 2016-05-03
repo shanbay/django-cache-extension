@@ -5,3 +5,8 @@ build
 dist
 MANIFEST
 django_cache_extension.egg-info
+.DS_STORE
+db.sqlite3
+docs/_build
+docs/_static
+docs/_templates

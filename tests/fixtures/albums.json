@@ -1,0 +1,27 @@
+[
+  {
+    "pk": 1,
+    "model": "tests.album",
+    "fields": {"artist":"Taylor Swift", "title": "1989"}
+  },
+  {
+    "pk": 2,
+    "model": "tests.album",
+    "fields": {"artist":"Taylor Swift", "title": "Red"}
+  },
+  {
+    "pk": 3,
+    "model": "tests.album",
+    "fields": {"artist":"Taylor Swift", "title": "Fearless"}
+  },
+  {
+    "pk": 4,
+    "model": "tests.album",
+    "fields": {"artist":"Taylor Swift", "title": "Taylor Swift"}
+  },
+  {
+    "pk": 5,
+    "model": "tests.album",
+    "fields": {"artist":"Taylor Swift", "title": "Speak Now"}
+  }
+]

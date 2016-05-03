@@ -1,11 +1,17 @@
 =====
-Django Cache Extension
+Django cache extension
 =====
 
 
 Quick start
 -----------
 
-1. Install ``django_cache_extension`` by pip::
-    
-    pip install django_cache_extension
+1. Install ``cache extension`` by pip::
+
+    pip install cache_extension
+
+2. For redis backend use cache like this::
+
+    config your cache file backend to:
+
+      cache_extension.backends.redis.ExtensionRedisBackend
