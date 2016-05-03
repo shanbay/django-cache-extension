@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.core.cache import cache
 from redis.exceptions import ResponseError
-from django_cache_extension.utils import apply_decorator
+from cache_extension.utils import apply_decorator
 from .models import Album
 
 

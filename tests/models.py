@@ -1,5 +1,5 @@
 from django.db import models
-from django_cache_extension.utils import clear_model_cache
+from cache_extension.utils import clear_model_cache
 
 
 # Create your models here.

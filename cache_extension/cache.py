@@ -1,5 +1,5 @@
 from functools import partial
-from django_cache_extension import cache_keys
+from cache_extension import cache_keys
 
 
 class ModelNotExist(object):

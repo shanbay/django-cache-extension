@@ -1,4 +1,4 @@
-from django_cache_extension.cache import ExtensionCache
+from cache_extension.cache import ExtensionCache
 
 from django_redis.cache import RedisCache, omit_exception
 from django_redis.client.default import _main_exceptions

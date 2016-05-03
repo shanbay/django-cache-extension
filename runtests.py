@@ -19,14 +19,14 @@ if not settings.configured:
         },
 
         INSTALLED_APPS=[
-            'django_cache_extension',
+            'cache_extension',
             'tests',
         ],
 
         CACHES={
             "default": {
                 'NAME': '17bdc',
-                'BACKEND': 'django_cache_extension.backends.redis.ExtensionRedisBackend',
+                'BACKEND': 'cache_extension.backends.redis.ExtensionRedisBackend',
                 'LOCATION': 'redis://redis:6379/0',
                 'TIMEOUT': '172800',
                 "KEY_PREFIX": "cache_extension",
