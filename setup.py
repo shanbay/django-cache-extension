@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-cache-extension',
-    version='1.0.1',
+    version='1.0.2',
     description='cache extension for django',
     url='https://github.com/Beeblio/django-cache-extension',
     author='Shanbay python dev group',
@@ -19,6 +19,6 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
-    packages=find_packages(exclude=('tests*',)),
-    install_requires=map(lambda x: x.replace('==', '>='), open("requirements.txt").readlines()),
+    packages=['cache_extension'],
+    include_package_data=True,
 )
