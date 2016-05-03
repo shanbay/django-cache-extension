@@ -16,7 +16,6 @@ Quick start
 
     CACHES={
           "default": {
-              'NAME': '17bdc',
               'BACKEND': 'cache_extension.backends.redis.ExtensionRedisBackend',
               'LOCATION': 'redis://redis:6379/0',
               'TIMEOUT': '172800',
