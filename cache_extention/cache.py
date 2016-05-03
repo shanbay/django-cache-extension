@@ -12,7 +12,7 @@ class ExtensionCache(object):
         return {
             f.attname: getattr(model, f.attname) for f in model._meta.fields}
 
-    def get_model(self, cls, pk=None, cache_exist=False, **kwargs):
+    def get_model(self, cls, pk=None, cache_exc=False, **kwargs):
         if pk:
             kwargs = {'pk': pk}
         key = cache_keys.key_of_model(cls, **kwargs)
@@ -23,12 +23,12 @@ class ExtensionCache(object):
                 model = cls.objects.get(**kwargs)
                 self.set(key, self.get_attrs(model))
             except cls.DoesNotExist:
-                if not cache_exist:
+                if not cache_exc:
                     raise cls.DoesNotExist
                 model = None
                 self.set(key, ModelNotExist())
         elif isinstance(attrs, ModelNotExist):
-            if not cache_exist:
+            if not cache_exc:
                 raise cls.DoesNotExist
             model = None
         else:

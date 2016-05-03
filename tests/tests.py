@@ -25,11 +25,11 @@ class CacheTest(TestCase):
             album = cache.get_model(Album, artist="Tay-Tay")
         except Album.DoesNotExist:
             album = cache.get_model(
-                Album, cache_exist=True, artist="Tay-Tay")
+                Album, cache_exc=True, artist="Tay-Tay")
         self.assertEqual(album, None)
         Album(artist="Tay-Tay", title="1989").save()
         result_model = cache.get_model(
-            Album, cache_exist=True, artist="Tay-Tay")
+            Album, cache_exc=True, artist="Tay-Tay")
         self.assertEqual(result_model.artist, "Tay-Tay")
 
         albums = cache.get_model_list(Album, artist="Taylor Swift")

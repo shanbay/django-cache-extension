@@ -5,11 +5,11 @@ Quick Start
 methods
 -------
 
-.. method:: get_model(model, pk=None, cache_exist=False, **kwargs)
+.. method:: get_model(model, pk=None, cache_exc=False, **kwargs)
 
     Return django model in cache, query database when cache miss hit, raise Model.DoesNotExist when miss database.
 
-    Set cache_exist=True where cache model.DoesNotExist in cache, and return None.
+    Set cache_exc=True where cache model.DoesNotExist in cache, and return None.
 
 
 .. method:: get_model_list(model, **kwargs)

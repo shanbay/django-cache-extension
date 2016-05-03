@@ -8,7 +8,7 @@ Quick start
 
 1. Install ``cache extension`` by pip::
 
-    pip install cache_extension
+    pip install django-cache-extension
 
 2. For redis backend use cache like this::
 
