@@ -1,6 +1,6 @@
 from setuptools import setup
 setup(
-    name='cache-extension',
+    name='django-cache-extension',
     version='1.0.0',
     description='cache extension for django',
     url='http://www.shanbay.com/',
@@ -18,6 +18,6 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
-    packages=['django_cache_extension'],
+    packages=['cache_extension'],
     install_requires=map(lambda x: x.replace('==', '>='), open("requirements.txt").readlines()),
 )
