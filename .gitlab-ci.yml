@@ -8,7 +8,7 @@ before_script:
 
 test_all:
   script:
-    - flake8 django_cache_extension
+    - flake8 cache_extension
     - coverage run --omit=*/tests*,*/migrations/*,*wsgi.py,*/apps.py,*/urls.py,setup.py, --source='.' runtests.py tests
     - coverage report
   tags:
