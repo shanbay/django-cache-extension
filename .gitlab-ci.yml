@@ -1,0 +1,15 @@
+before_script:
+  - virtualenv /cache/venv
+  - source /cache/venv/bin/activate
+  - pip install --no-cache-dir -r requirements.txt -i http://pypi.douban.com/simple --trusted-host pypi.douban.com > /dev/null
+
+  - pip install --no-cache-dir flake8 coverage
+
+
+test_all:
+  script:
+    - flake8 django_cache_extension
+    - coverage run --omit=*/tests*,*/migrations/*,*wsgi.py,*/apps.py,*/urls.py,setup.py, --source='.' runtests.py tests
+    - coverage report
+  tags:
+    - mspy
