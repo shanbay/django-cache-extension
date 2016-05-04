@@ -1,8 +1,8 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
     name='django-cache-extension',
-    version='1.0.2',
+    version='1.0.3',
     description='cache extension for django',
     url='https://github.com/Beeblio/django-cache-extension',
     author='Shanbay python dev group',
@@ -20,5 +20,5 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     packages=['cache_extension'],
-    include_package_data=True,
+    install_requires=['Django>=1.9.1', 'django-redis', 'redis', 'hiredis'],
 )
