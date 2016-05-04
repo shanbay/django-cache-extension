@@ -20,5 +20,5 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     packages=['cache_extension'],
-    install_requires=['Django>=1.9.1', 'django-redis', 'redis', 'hiredis'],
+    install_requires=['django-redis', 'redis', 'hiredis'],
 )
