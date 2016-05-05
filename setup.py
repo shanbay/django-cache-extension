@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='django-cache-extension',
-    version='1.0.3',
+    version='1.0.5',
     description='cache extension for django',
     url='https://github.com/Beeblio/django-cache-extension',
     author='Shanbay python dev group',
@@ -20,5 +20,6 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     packages=['cache_extension'],
+    package_data={'cache_extension': ['backends/*.py']},
     install_requires=['django-redis', 'redis', 'hiredis'],
 )
