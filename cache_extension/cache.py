@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from functools import partial
 from cache_extension import cache_keys
 
@@ -12,6 +13,22 @@ class ExtensionCache(object):
         return {
             f.attname: getattr(model, f.attname) for f in model._meta.fields}
 
+    def get_or_create_model(self, cls, *args, **kwargs):
+        try:
+            model = self.get_model(cls, *args, **kwargs)
+            return model, False
+        except cls.DoesNotExist:
+            if args:
+                if len(args) > 1:
+                    raise ValueError('multi field should pass by kwargs')
+                kwargs = {'pk':args[0]}
+            try:
+                model = cls.objects.create(**kwargs)
+            except IntegrityError:
+                model = cls.objects.get(**kwargs)
+                
+            return model, True
+            
     def get_model(self, cls, pk=None, cache_exc=False, **kwargs):
         if pk:
             kwargs = {'pk': pk}
@@ -56,9 +73,9 @@ class ExtensionCache(object):
             instance, **{field: val}) for val in vals]
         self.delete_many(keys)
 
-    def get_many_by_vals(self, vals, key_func, version=None):
+    def get_many_by_vals(self, vals, key_func):
         keys = [key_func(val) for val in vals]
-        ret = self.get_many(keys, version=version)
+        ret = self.get_many(keys)
         if ret:
             _ = {}
             m = dict(zip(keys, vals))
@@ -129,3 +146,10 @@ class ExtensionCache(object):
         kwargs = dict([(field, getattr(instance, field)) for field in args])
         key = cache_keys.key_of_model_list(instance.__class__, **kwargs)
         return key
+
+    def fetch(self, key, block):
+        data = self.get(key)
+        if data is None:
+            data = block()
+            self.set(key, data)
+        return data
