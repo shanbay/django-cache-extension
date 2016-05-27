@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='django-cache-extension',
-    version='1.0.6',
+    version='1.0.7',
     description='cache extension for django',
     url='https://github.com/Beeblio/django-cache-extension',
     author='Shanbay python dev group',
