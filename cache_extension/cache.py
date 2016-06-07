@@ -29,12 +29,9 @@ class ExtensionCache(object):
                 
             return model, True
             
-    def get_model(self, cls, pk=None, cache_exc=False, **kwargs):
-        if pk is not None:
-            kwargs = {'pk': pk}
+    def get_model(self, cls, cache_exc=False, **kwargs):
         key = cache_keys.key_of_model(cls, **kwargs)
         attrs = self.get(key)
-
         if not attrs:
             try:
                 model = cls.objects.get(**kwargs)
