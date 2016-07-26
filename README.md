@@ -17,6 +17,7 @@ Quick start
 
     config your cache file backend to cache_extension:
 
+    ```
     CACHES={
           "default": {
               'BACKEND': 'cache_extension.backends.redis.ExtensionRedisBackend',
@@ -31,18 +32,23 @@ Quick start
               }
           }
       },
+    ```
 
 or For custom cache backend:: 
 
+   ```
    from cache_extension.cache import ExtensionCache
    from some_module import CustomCache
    class ExtensionCustomCache(ExtensionCache, CustomCache):
        pass
+   ```
 
 
 3. Use extension cache methods:: 
 
+   ```
    >>> cache.get_model(Article, pk=1)
    >>> cache.get_models(Article, [1,2,3])
    >>> cache.get_model(UserArticle, user_id=1, article_id=1)
    >>> cache.get_model_list(UserArticle, user_id=1)
+   ```
