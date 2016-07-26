@@ -2,6 +2,8 @@
 Django cache extension
 =====
 
+[![Build Status](https://travis-ci.org/Beeblio/django-cache-extension.svg?branch=master)](https://travis-ci.org/Beeblio/django-cache-extension)
+
 Add extension methods to cache
 
 Quick start
