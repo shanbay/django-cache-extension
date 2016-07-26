@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from cache_extension.cache import ExtensionCache
 
 from django_redis.cache import RedisCache, omit_exception
@@ -11,6 +13,7 @@ class ExtensionRedisBackend(ExtensionCache, RedisCache):
 
     @omit_exception
     def incr(self, key, delta=1, version=None, client=None):
+
         if not client:
             client = self.client.get_client(write=True)
 
