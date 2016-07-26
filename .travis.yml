@@ -1,6 +1,5 @@
 language: python
 services: redis
-install: "pip install -r requirements.txt"
 python:
   - "2.7"
   - "3.2"
@@ -14,6 +13,7 @@ env:
   - DJANGO_VERSION=1.9
 install:
   - pip install -q Django==$DJANGO_VERSION
+  - pip install -r requirements.txt
 script: python runtests.py
 matrix:
   exclude:
