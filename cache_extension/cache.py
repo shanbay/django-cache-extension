@@ -117,6 +117,12 @@ class ExtensionCache(object):
         key = cache_keys.key_of_model_list(cls, **kwargs)
         models = self.get(key)
         if models:
+            fields = set([f.attname for f in cls._meta.fields])
+            for model in models:
+                attrs_keys = set(model.keys())
+                diff = attrs_keys - fields
+                for key in diff:
+                    model.pop(key)
             return [cls(**model) for model in models]
         models = list(cls.objects.filter(**kwargs))
         data = [self.get_attrs(m) for m in models]
