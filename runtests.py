@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import sys
 import os
 import warnings
@@ -14,20 +15,17 @@ if not settings.configured:
         DATABASES={
             'default': {
                 'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
             }
         },
-
         INSTALLED_APPS=[
             'cache_extension',
             'tests',
         ],
-
         CACHES={
             "default": {
                 'NAME': '17bdc',
                 'BACKEND': 'cache_extension.backends.redis.ExtensionRedisBackend',
-                'LOCATION': 'redis://redis:6379/0',
+                'LOCATION': 'redis://localhost:6379/0',
                 'TIMEOUT': '172800',
                 "KEY_PREFIX": "cache_extension",
                 'OPTIONS': {
@@ -40,7 +38,6 @@ if not settings.configured:
         },
 
         MIDDLEWARE_CLASSES=[],
-
     )
 
 
