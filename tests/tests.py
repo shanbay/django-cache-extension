@@ -82,4 +82,4 @@ class CacheTest(TestCase):
                 return '%s_v1' % id
 
         self.assertEqual(Cache_key.key_of_test_cache_key(1),
-                         'tests.test.test_cache_key.1_v1')
+                         'tests.tests.test_cache_key.1_v1')
