@@ -34,7 +34,7 @@ Quick start
       },
     ```
 
-or For custom cache backend:: 
+3. For custom cache backend:: 
 
    ```
    from cache_extension.cache import ExtensionCache
@@ -44,11 +44,33 @@ or For custom cache backend::
    ```
 
 
-3. Use extension cache methods:: 
+4. Use extension cache methods:: 
 
    ```
-   >>> cache.get_model(Article, pk=1)
-   >>> cache.get_models(Article, [1,2,3])
-   >>> cache.get_model(UserArticle, user_id=1, article_id=1)
-   >>> cache.get_model_list(UserArticle, user_id=1)
+   cache.get_model(Article, pk=1)
+   cache.get_models(Article, [1,2,3])
+   cache.get_model(UserArticle, user_id=1, article_id=1)
+   cache.get_model_list(UserArticle, user_id=1)
    ```
+
+5. Built in cached fields: ForeignKeyField, OneToOneField. Say you have two models defined as below:
+
+    ```
+    from django.db import models
+    from cache_extension import cached_fields
+
+
+    class Foo(models.Model):
+        pass
+
+    class Bar(models.Model):
+        foo = cached_fields.ForeignKeyField(Foo)
+
+    ```
+
+    Then instances of Bar will have a `cached_foo` property which will try to fetch foo from cache first, if cache misses, will fallback to database.
+    ```
+    bar = Bar.objects.get(pk=1)
+    bar.cached_foo # cached foreign field, really handy
+    ```
+
