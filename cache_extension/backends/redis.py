@@ -95,7 +95,8 @@ class ExtensionRedisBackend(ExtensionCache, RedisCache):
         return value
 
     def pipeline(self, transaction=True, shard_hint=None):
-        return self.client.pipeline(transaction=True, shard_hint=None)
+        return self.client.pipeline(transaction=transaction,
+                                    shard_hint=shard_hint)
 
     def __getattr__(self, cmd):
         if cmd not in SUPPORT_CMDS:
