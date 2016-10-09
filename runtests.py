@@ -34,6 +34,18 @@ if not settings.configured:
                     'PARSER_CLASS': 'redis.connection.HiredisParser',
                     'PICKLE_VERSION': 2,
                 }
+            },
+            "redis": {
+                'NAME': '17bdc',
+                'BACKEND': 'cache_extension.backends.redis.ExtensionRedisBackend',
+                'LOCATION': 'redis://localhost:6379/0',
+                'TIMEOUT': '172800',
+                "KEY_PREFIX": "cache_extension",
+                'OPTIONS': {
+                    "DB": 0,
+                    'PARSER_CLASS': 'redis.connection.HiredisParser',
+                    'PICKLE_VERSION': 2,
+                }
             }
         },
 

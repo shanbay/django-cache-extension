@@ -1,9 +1,16 @@
+from django import get_version
 from django.test import TestCase
 from django.core.cache import cache
-from redis.exceptions import ResponseError
 from cache_extension.utils import apply_decorator
 from cache_extension import cache_keys
 from .models import Album
+
+if get_version() >= '1.7':
+    from django.core.cache import caches
+    REDIS_CACHE = caches['redis']
+else:
+    from django.core.cache import get_cache
+    REDIS_CACHE = get_cache('redis')
 
 
 class CacheTest(TestCase):
@@ -19,18 +26,20 @@ class CacheTest(TestCase):
         cache.clear()
 
     def test_cache(self):
-        album = cache.get_model(
-            Album, artist="Taylor Swift", title="Taylor Swift")
+        album = cache.get_model(Album, artist="Taylor Swift",
+                                title="Taylor Swift")
         self.assertEqual(album.artist, "Taylor Swift")
+
         try:
             album = cache.get_model(Album, artist="Tay-Tay")
         except Album.DoesNotExist:
-            album = cache.get_model(
-                Album, cache_exc=True, artist="Tay-Tay")
+            album = cache.get_model(Album, cache_exc=True, artist="Tay-Tay")
+
         self.assertEqual(album, None)
+
         Album(artist="Tay-Tay", title="1989").save()
-        result_model = cache.get_model(
-            Album, cache_exc=True, artist="Tay-Tay")
+
+        result_model = cache.get_model(Album, cache_exc=True, artist="Tay-Tay")
         self.assertEqual(result_model.artist, "Tay-Tay")
 
         albums = cache.get_model_list(Album, artist="Taylor Swift")
@@ -41,7 +50,6 @@ class CacheTest(TestCase):
 
         album = Album.objects.create(artist="Tay-Tay", title="Red")
         cache.set_model(album)
-        all_albums = Album.objects.all()
         result_album = cache.get_model(Album, pk=album.pk)
         self.assertEqual(album.pk, result_album.pk)
 
@@ -54,7 +62,8 @@ class CacheTest(TestCase):
     def test_add_model_field(self):
         album = Album.objects.get(pk=1)
         result = {
-                  f.attname: getattr(album, f.attname) for f in album._meta.fields}
+            f.attname: getattr(album, f.attname) for f in album._meta.fields
+        }
         result['another_field'] = '1'
 
         key = cache_keys.key_of_model(Album, pk=1)
@@ -64,14 +73,17 @@ class CacheTest(TestCase):
 
         album = cache.get_model(Album, pk=1)
         self.assertRaises(AttributeError, lambda: album.another_field)
-        albums = cache.get_models(Album, [1,2])
-        albums = cache.get_model_list(Album, artist="Taylor Swift")
 
     def test_incr(self):
         key = "album_total_num"
         cache.set(key, self.num_albums)
         result = cache.incr(key, 1)
         self.assertEqual(result, self.num_albums+1)
+
+    def test_other_cmd(self):
+        key = "album_ids"
+        ids = REDIS_CACHE.smembers(key)
+        self.assertEqual(ids, set([]))
 
     def test_cache_decorator(self):
 
