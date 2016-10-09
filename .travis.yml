@@ -2,9 +2,6 @@ language: python
 services: redis
 python:
   - "2.7"
-  - "3.2"
-  - "3.3"
-  - "3.4"
   - "3.5"
 env:
   - DJANGO_VERSION=1.6
@@ -19,11 +16,5 @@ matrix:
   exclude:
     - python: "3.5"
       env: DJANGO_VERSION=1.6
-    - python: "3.4"
-      env: DJANGO_VERSION=1.6
     - python: "3.5"
       env: DJANGO_VERSION=1.7
-    - python: "3.2"
-      env: DJANGO_VERSION=1.9
-    - python: "3.3"
-      env: DJANGO_VERSION=1.9

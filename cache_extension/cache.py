@@ -21,14 +21,14 @@ class ExtensionCache(object):
             if args:
                 if len(args) > 1:
                     raise ValueError('multi field should pass by kwargs')
-                kwargs = {'pk':args[0]}
+                kwargs = {'pk': args[0]}
             try:
                 model = cls.objects.create(**kwargs)
             except IntegrityError:
                 model = cls.objects.get(**kwargs)
-                
+
             return model, True
-            
+
     def get_model(self, cls, cache_exc=False, **kwargs):
         key = cache_keys.key_of_model(cls, **kwargs)
         attrs = self.get(key)
