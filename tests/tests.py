@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.core.cache import cache
+from django.core.cache import caches
 from cache_extension.utils import apply_decorator
 from cache_extension import cache_keys
 from .models import Album
@@ -12,6 +13,7 @@ class CacheTest(TestCase):
         all_albums = Album.objects.filter(artist="Taylor Swift")
         self.num_albums = all_albums.count()
         self.album_ids = all_albums.values_list('id', flat=True)
+        self.redis_cache = caches['redis']
 
     def tearDown(self):
         Album.objects.all().delete()
@@ -74,7 +76,7 @@ class CacheTest(TestCase):
 
     def test_other_cmd(self):
         key = "album_ids"
-        ids = cache.smembers(key, self.num_albums)
+        ids = self.redis_cache.smembers(key)
         self.assertEqual(ids, set([]))
 
     def test_cache_decorator(self):
