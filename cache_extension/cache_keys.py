@@ -44,6 +44,8 @@ def key_of_model_list(cls, **kwargs):
 
 def validate_fields(cls, fields):
     for key, value in fields.items():
+        if key in ['pk', 'id']:
+            continue
         if key.endswith('_id'):
             try:
                 field = cls._meta.get_field(key.rstrip('_id'))
