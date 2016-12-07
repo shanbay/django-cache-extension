@@ -8,4 +8,5 @@ class Album(models.Model):
     title = models.CharField(max_length=128)
 
 clear_model_cache(Album)
+clear_model_cache(Album, 'artist')
 clear_model_cache(Album, model_list_fields=['artist'])
