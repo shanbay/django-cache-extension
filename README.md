@@ -53,7 +53,9 @@ Quick start
    cache.get_model_list(UserArticle, user_id=1)
    ```
 
-5. Built in cached fields: ForeignKeyField, OneToOneField. Say you have two models defined as below:
+5. Built in cached fields: ForeignKeyField, OneToOneField.
+
+   Say you have two models defined as below:
 
     ```
     from django.db import models
