@@ -30,7 +30,6 @@ if not settings.configured:
                 "KEY_PREFIX": "cache_extension",
                 'OPTIONS': {
                     "DB": 0,
-                    "CLIENT_CLASS": "django_redis.client.DefaultClient",
                     'PARSER_CLASS': 'redis.connection.HiredisParser',
                     'PICKLE_VERSION': 2,
                 }
@@ -43,6 +42,7 @@ if not settings.configured:
                 "KEY_PREFIX": "cache_extension",
                 'OPTIONS': {
                     "DB": 0,
+                    "CLIENT_CLASS": "cache_extension.backends.redis.ExtensionClient",
                     'PARSER_CLASS': 'redis.connection.HiredisParser',
                     'PICKLE_VERSION': 2,
                 }
