@@ -10,7 +10,7 @@ KEY_CMDS = ['exists', 'expire', 'expireat', 'rename', 'ttl']
 SET_CMDS = ['sadd', 'scard', 'sismember', 'smembers', 'spop', 'srem']
 ZSET_CMDS = [
     'zadd', 'zcard', 'zcount', 'zincrby', 'zrange', 'zrem',
-    'zrevrange', 'zscore'
+    'zrevrange', 'zscore', 'zremrangebyrank'
 ]
 
 SUPPORT_CMDS = KEY_CMDS + SET_CMDS + ZSET_CMDS
@@ -61,8 +61,8 @@ class ExtensionRedisBackend(ExtensionCache, RedisCache):
 
     def __init__(self, server, params):
         options = params.get("OPTIONS", {})
-        cname = "cache_extension.backends.redis.ExtensionClient"
-        client_class = options.get('CLIENT_CLASS', cname)
+        default_client = "django_redis.client.DefaultClient"
+        client_class = options.get('CLIENT_CLASS', default_client)
         options['CLIENT_CLASS'] = client_class
         params['options'] = options
         super(ExtensionRedisBackend, self).__init__(server, params)
