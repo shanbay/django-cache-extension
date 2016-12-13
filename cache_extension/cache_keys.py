@@ -46,17 +46,7 @@ def validate_fields(cls, fields):
     for key, value in fields.items():
         if key in ['pk', 'id']:
             continue
-        if key.endswith('_id'):
-            try:
-                field = cls._meta.get_field(key.rstrip('_id'))
-            except FieldDoesNotExist:
-                continue
-            if isinstance(field, ForeignKey):
-                try:
-                    int(value)
-                except TypeError:
-                    return False, 'must use id as value on related fields'
-        else:
+        if not key.endswith('_id'):
             field = cls._meta.get_field(key)
             if isinstance(field, ForeignKey):
                 return False, 'must use FIELD_id on related fields'
