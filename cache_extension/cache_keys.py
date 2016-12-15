@@ -46,7 +46,7 @@ def validate_fields(cls, fields):
     for key, value in fields.items():
         if key in ['pk', 'id']:
             continue
-        if not key.endswith('_id'):
+        if not key.endswith('_id') and '__' not in key:
             field = cls._meta.get_field(key)
             if isinstance(field, ForeignKey):
                 return False, 'must use FIELD_id on related fields'
