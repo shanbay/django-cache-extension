@@ -7,13 +7,24 @@ from redis.client import StrictPipeline
 from redis.exceptions import ResponseError
 
 KEY_CMDS = ['exists', 'expire', 'expireat', 'rename', 'ttl']
+# not support hstrlen
+HASH_CMDS = [
+    'hdel', 'hexists', 'hget', 'hgetall', 'hincrby', 'hincrbyfloat', 'hkeys',
+    'hlen', 'hmget', 'hmset', 'hset', 'hsetnx', 'hvals', 'hscan',
+]
+# first arg must be key, so this cmds not support: brpoplpush, rpoplpush
+LIST_CMDS = [
+    'blpop', 'brpop', 'lindex', 'linsert', 'llen',
+    'lpop', 'lpush', 'lpushx', 'lrange', 'lrem', 'lset',
+    'ltrim', 'rpop', 'rpush', 'rpushx',
+]
 SET_CMDS = ['sadd', 'scard', 'sismember', 'smembers', 'spop', 'srem']
 ZSET_CMDS = [
     'zadd', 'zcard', 'zcount', 'zincrby', 'zrange', 'zrem',
     'zrevrange', 'zscore', 'zremrangebyrank'
 ]
 
-SUPPORT_CMDS = KEY_CMDS + SET_CMDS + ZSET_CMDS
+SUPPORT_CMDS = KEY_CMDS + HASH_CMDS + LIST_CMDS + SET_CMDS + ZSET_CMDS
 
 
 class ExtensionPipeline(StrictPipeline):
