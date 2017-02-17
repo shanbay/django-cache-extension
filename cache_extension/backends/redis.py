@@ -12,10 +12,11 @@ HASH_CMDS = [
     'hdel', 'hexists', 'hget', 'hgetall', 'hincrby', 'hincrbyfloat', 'hkeys',
     'hlen', 'hmget', 'hmset', 'hset', 'hsetnx', 'hvals', 'hscan',
 ]
+# first arg must be key, so this cmds not support: brpoplpush, rpoplpush
 LIST_CMDS = [
-    'blpop', 'brpop', 'brpoplpush', 'lindex', 'linsert', 'llen',
+    'blpop', 'brpop', 'lindex', 'linsert', 'llen',
     'lpop', 'lpush', 'lpushx', 'lrange', 'lrem', 'lset',
-    'ltrim', 'rpop', 'rpoplpush', 'rpush', 'rpushx',
+    'ltrim', 'rpop', 'rpush', 'rpushx',
 ]
 SET_CMDS = ['sadd', 'scard', 'sismember', 'smembers', 'spop', 'srem']
 ZSET_CMDS = [
