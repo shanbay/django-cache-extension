@@ -7,13 +7,18 @@ from redis.client import StrictPipeline
 from redis.exceptions import ResponseError
 
 KEY_CMDS = ['exists', 'expire', 'expireat', 'rename', 'ttl']
+LIST_CMDS = [
+    'blpop', 'brpop', 'brpoplpush', 'lindex', 'linsert', 'llen',
+    'lpop', 'lpush', 'lpushx', 'lrange', 'lrem', 'lset',
+    'ltrim', 'rpop', 'rpoplpush', 'rpush', 'rpushx',
+]
 SET_CMDS = ['sadd', 'scard', 'sismember', 'smembers', 'spop', 'srem']
 ZSET_CMDS = [
     'zadd', 'zcard', 'zcount', 'zincrby', 'zrange', 'zrem',
     'zrevrange', 'zscore', 'zremrangebyrank'
 ]
 
-SUPPORT_CMDS = KEY_CMDS + SET_CMDS + ZSET_CMDS
+SUPPORT_CMDS = KEY_CMDS + LIST_CMDS + SET_CMDS + ZSET_CMDS
 
 
 class ExtensionPipeline(StrictPipeline):
