@@ -7,9 +7,10 @@ from redis.client import StrictPipeline
 from redis.exceptions import ResponseError
 
 KEY_CMDS = ['exists', 'expire', 'expireat', 'rename', 'ttl']
+# not support hstrlen
 HASH_CMDS = [
     'hdel', 'hexists', 'hget', 'hgetall', 'hincrby', 'hincrbyfloat', 'hkeys',
-    'hlen', 'hmget', 'hmset', 'hset', 'hsetx', 'hstrlen', 'hvals', 'hscan',
+    'hlen', 'hmget', 'hmset', 'hset', 'hsetnx', 'hvals', 'hscan',
 ]
 LIST_CMDS = [
     'blpop', 'brpop', 'brpoplpush', 'lindex', 'linsert', 'llen',

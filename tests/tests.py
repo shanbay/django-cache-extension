@@ -1,6 +1,7 @@
 from django import get_version
 from django.test import TestCase
 from django.core.cache import cache
+from cache_extension.backends.redis import SUPPORT_CMDS
 from cache_extension.utils import apply_decorator
 from cache_extension import cache_keys
 from .models import Album
@@ -84,6 +85,19 @@ class CacheTest(TestCase):
         key = "album_ids"
         ids = REDIS_CACHE.smembers(key)
         self.assertEqual(ids, set([]))
+
+        for cmd in SUPPORT_CMDS:
+            getattr(REDIS_CACHE, cmd)
+
+        # test use cmd not in SUPPORT_CMDS list
+        with self.assertRaises(KeyError):
+            getattr(REDIS_CACHE, 'tests')
+
+        # test 'StrictRedis' object has no attribute 'hstrlen'
+        # test not support redis cmd
+        SUPPORT_CMDS.append('hstrlen')
+        with self.assertRaises(AttributeError):
+            getattr(REDIS_CACHE, 'hstrlen')
 
     def test_cache_decorator(self):
 
