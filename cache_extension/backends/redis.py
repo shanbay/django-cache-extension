@@ -18,7 +18,9 @@ LIST_CMDS = [
     'lpop', 'lpush', 'lpushx', 'lrange', 'lrem', 'lset',
     'ltrim', 'rpop', 'rpush', 'rpushx',
 ]
-SET_CMDS = ['sadd', 'scard', 'sismember', 'smembers', 'spop', 'srem']
+SET_CMDS = ['sadd', 'scard', 'sismember', 'smembers', 'spop', 'srem',
+           'srandmember', 'sinter', 'sinterstore', 'sdiff', 'sdiffstore',
+            'sunion', 'sunionstore']
 ZSET_CMDS = [
     'zadd', 'zcard', 'zcount', 'zincrby', 'zrange', 'zrem',
     'zrevrange', 'zscore', 'zremrangebyrank'
