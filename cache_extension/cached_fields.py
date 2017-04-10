@@ -8,7 +8,7 @@ class CachedModel(models.Model):
     def _cached_FIELD(self, field):
         value = getattr(self, field.attname)
         Model = field.related_model
-        return cache.get_model(Model, pk=value)
+        return cache.get_model(Model, pk=value, cache_exc=True)
 
     class Meta:
         abstract = True
