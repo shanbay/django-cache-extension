@@ -6,7 +6,9 @@ from django_redis.exceptions import ConnectionInterrupted
 from redis.client import StrictPipeline
 from redis.exceptions import ResponseError
 
-KEY_CMDS = ['exists', 'expire', 'expireat', 'rename', 'ttl']
+KEY_CMDS = [
+    'exists', 'expire', 'expireat', 'rename', 'ttl', 'incrby', 'incrbyfloat',
+]
 # not support hstrlen
 HASH_CMDS = [
     'hdel', 'hexists', 'hget', 'hgetall', 'hincrby', 'hincrbyfloat', 'hkeys',
@@ -18,9 +20,11 @@ LIST_CMDS = [
     'lpop', 'lpush', 'lpushx', 'lrange', 'lrem', 'lset',
     'ltrim', 'rpop', 'rpush', 'rpushx',
 ]
-SET_CMDS = ['sadd', 'scard', 'sismember', 'smembers', 'spop', 'srem',
-           'srandmember', 'sinter', 'sinterstore', 'sdiff', 'sdiffstore',
-            'sunion', 'sunionstore']
+SET_CMDS = [
+    'sadd', 'scard', 'sismember', 'smembers', 'spop', 'srem',
+    'srandmember', 'sinter', 'sinterstore', 'sdiff', 'sdiffstore',
+    'sunion', 'sunionstore',
+]
 ZSET_CMDS = [
     'zadd', 'zcard', 'zcount', 'zincrby', 'zrange', 'zrem',
     'zrevrange', 'zscore', 'zremrangebyrank'
