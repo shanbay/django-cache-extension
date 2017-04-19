@@ -6,8 +6,11 @@ except:
     from django.db.models.fields import FieldDoesNotExist
 
 def key_of_model(cls, *args, **kwargs):
+    args, kwargs = transform_args(args, kwargs)
+    if 'id' in kwargs:
+        kwargs['pk'] = kwargs.pop('id')
+        
     key_prefix = "%s.%s" % (cls.__module__, cls.__name__)
-
     if hasattr(cls, 'cache_version'):
         key_prefix += ".%s" % (getattr(cls, 'cache_version'))
 
@@ -25,11 +28,14 @@ def key_of_model(cls, *args, **kwargs):
 
 
 def key_of_model_list(cls, **kwargs):
-
+    args, kwargs = transform_args([], kwargs)
     valid, msg = validate_fields(cls, kwargs)
     if not valid:
         raise ValueError(msg)
 
+    if 'id' in kwargs:
+        kwargs['pk'] = kwargs.pop('id')
+        
     key_prefix = "list.%s.%s" % (cls.__module__, cls.__name__)
     if hasattr(cls, 'list_cache_version'):
         key_prefix += ".%s" % (getattr(cls, 'list_cache_version'))
@@ -51,3 +57,15 @@ def validate_fields(cls, fields):
             if isinstance(field, ForeignKey):
                 return False, 'must use FIELD_id on related fields'
     return True, 'SUCCESS'
+
+def transform_args(args, kwargs):
+    new_args = []
+    for a in args:
+        if isinstance(a, bytes):
+            a = a.decode()
+        new_args.append(a)
+    for k,i in kwargs.items():
+        if isinstance(i, bytes):
+            kwargs[k] = i.decode()
+
+    return new_args, kwargs
