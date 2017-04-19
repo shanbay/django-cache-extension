@@ -109,3 +109,8 @@ class CacheTest(TestCase):
 
         self.assertEqual(Cache_key.key_of_test_cache_key(1),
                          'tests.tests.test_cache_key.1_v1')
+
+    def test_bytes_key(self):
+        album_id = str(Album.objects.first().id).encode()
+        album = cache.get_model(Album, id=album_id)
+        self.assertEqual(album.artist, "Taylor Swift")
